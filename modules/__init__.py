@@ -23,6 +23,12 @@ def process_query(input):
                 'tenant':None
             }
         }
+    if input == '租賃契約':
+        intent = 'lease_contract'
+        entities = {
+            'type':None,
+            'choice':None
+        }
     
     if intent in src.__all__:
         return intent, entities
@@ -31,6 +37,8 @@ def process_query(input):
 
 
 def search(input, sender=None, postback=False):
+    if input == '""':
+        postback == False
     if postback:
         payload = json.loads(input)
         intent = payload['intent']
