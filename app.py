@@ -10,7 +10,7 @@ import modules
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ["PAGE_ACCESS_TOKEN"]   #ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ["VERIFY_TOKEN"]   #VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
-
+#hahaha
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/", methods=['GET', 'POST'])
 def webhook():
@@ -30,11 +30,13 @@ def webhook():
         for event in messaging_events:
             sender = event['sender']['id']
             message = None
-            print(event)
+            print('event ', event)
             if 'message' in event and 'text' in event['message']:
+                #判斷是否為快速回復
                 if 'quick_reply' in event['message'] and 'payload' in event['message']['quick_reply']:
                     quick_reply_payload = event['message']['quick_reply']['payload']
                     message = modules.search(quick_reply_payload, sender=sender, postback=True)
+                #由使用者輸入的字句
                 else:
                     text = event['message']['text']
                     message = modules.search(text, sender=sender)
